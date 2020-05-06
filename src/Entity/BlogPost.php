@@ -209,7 +209,7 @@ class BlogPost
         if (!$this->createdAt) {
             $this->createdAt = $now;
         }
-        if ($this->updatedAt) {
+        if (!$this->updatedAt) {
             $this->updatedAt = $now;
         }
     }
