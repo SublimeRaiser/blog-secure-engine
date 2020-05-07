@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="blog-header">
+            <h2 class="blog-title">Creating your author</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col-sm-12 blog-main">
+                {{ form_start(authorForm) }}
+                <div class="col-md-12">
+                    <div class="form-group col-md-4">
+                        {{ form_row(authorForm.name) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form_row(authorForm.title) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form_row(authorForm.company) }}
+                    </div>
+                    <div class="form-group col-md-12">
+                        {{ form_row(authorForm.username) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form_row(authorForm.phone) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form_row(authorForm.facebook) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form_row(authorForm.twitter) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form_row(authorForm.github) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form_row(authorForm.shortBio) }}
+                    </div>
+                </div>
+                <div class="form-group col-md-4 pull-right">
+                    {{ form_row(authorForm.submit) }}
+                </div>
+                {{ form_end(authorForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
