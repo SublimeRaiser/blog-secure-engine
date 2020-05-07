@@ -13,6 +13,7 @@ hwi_oauth_connect:
 hwi_oauth_login:
   resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
   prefix:   /login
+
 auth0_login:
   path: /auth0/callback
 
