@@ -17,25 +17,25 @@
                         </div>
                     {% endfor %}
                 {% endfor %}
-                {{ form_start(form) }}
+                {{ form_start(blogPostForm) }}
                 <div class="col-md-12">
                     <div class="form-group col-md-4">
-                        {{ form_row(form.title) }}
+                        {{ form_row(blogPostForm.title) }}
                     </div>
                     <div class="form-group col-md-4">
-                        {{ form_row(form.slug) }}
+                        {{ form_row(blogPostForm.slug) }}
                     </div>
                     <div class="form-group col-md-12">
-                        {{ form_row(form.description) }}
+                        {{ form_row(blogPostForm.description) }}
                     </div>
                     <div class="form-group col-md-12">
-                        {{ form_row(form.body) }}
+                        {{ form_row(blogPostForm.body) }}
                     </div>
                     <div class="form-group col-md-4 pull-right">
-                        {{ form_widget(form.submit) }}
+                        {{ form_widget(blogPostForm.submit) }}
                     </div>
                 </div>
-                {{ form_end(form) }}
+                {{ form_end(blogPostForm) }}
             </div>
         </div>
     </div>
