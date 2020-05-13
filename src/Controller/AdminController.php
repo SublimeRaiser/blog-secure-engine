@@ -56,6 +56,8 @@ class AdminController extends AbstractController
      * @Route("/admin/author/new", name="admin_author_new", methods={"GET", "POST"})
      *
      * @param Request $request
+     *
+     * @return Response
      */
     public function createAuthor(Request $request)
     {
