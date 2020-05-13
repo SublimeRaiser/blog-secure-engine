@@ -9,6 +9,7 @@ use App\Form\BlogPostType;
 use App\Repository\AuthorRepository;
 use App\Repository\BlogPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,6 +62,8 @@ class AdminController extends AbstractController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws NonUniqueResultException
      */
     public function createAuthor(Request $request)
     {
@@ -98,11 +101,13 @@ class AdminController extends AbstractController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws NonUniqueResultException
      */
     public function createBlogPost(Request $request)
     {
         $currentUsername = $this->getUser()->getUsername();
-        $author          = $this->authorRepo->findByUserName($currentUsername);
+        $author          = $this->authorRepo->findByUsername($currentUsername);
 
         $blogPost = new BlogPost();
         $blogPost->setAuthor($author);
