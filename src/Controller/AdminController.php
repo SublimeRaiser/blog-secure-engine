@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/admin")
+ */
 class AdminController extends AbstractController
 {
     /** @var EntityManagerInterface */
@@ -43,7 +46,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/", name="admin_index")
      */
     public function index()
     {
@@ -53,7 +56,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/author/new", name="admin_author_new", methods={"GET", "POST"})
+     * @Route("/author/new", name="admin_author_new", methods={"GET", "POST"})
      *
      * @param Request $request
      *
@@ -90,7 +93,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/blog-post/new", name="admin_blog_post_new", methods={"GET","POST"})
+     * @Route("/blog-post/new", name="admin_blog_post_new", methods={"GET","POST"})
      *
      * @param Request $request
      *
