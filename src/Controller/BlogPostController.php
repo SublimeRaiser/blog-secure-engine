@@ -35,7 +35,7 @@ class BlogPostController extends AbstractController
     }
 
     /**
-     * @Route("/", name="blog_post_index")
+     * @Route("/", name="blog_post_index", methods={"GET"})
      *
      * @return Response
      */

@@ -47,7 +47,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/", name="admin_index")
+     * @Route("/", name="admin_index", methods={"GET"})
      *
      * @return Response
      */
