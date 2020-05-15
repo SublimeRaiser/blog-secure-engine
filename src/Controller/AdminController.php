@@ -65,7 +65,7 @@ class AdminController extends AbstractController
      *
      * @throws NonUniqueResultException
      */
-    public function createAuthor(Request $request)
+    public function newAuthor(Request $request)
     {
         $currentUsername = $this->getUser()->getUsername();
         if ($this->authorRepo->findByUsername($currentUsername)) {
@@ -104,7 +104,7 @@ class AdminController extends AbstractController
      *
      * @throws NonUniqueResultException
      */
-    public function createBlogPost(Request $request)
+    public function newBlogPost(Request $request)
     {
         $currentUsername = $this->getUser()->getUsername();
         $author          = $this->authorRepo->findByUsername($currentUsername);
