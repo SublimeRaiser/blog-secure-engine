@@ -148,4 +148,32 @@ class AdminController extends AbstractController
             'blogPostForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/blog-post/{id}", name="admin_blog_post_delete", methods={"GET"})
+     *
+     * @param BlogPost $blogPost
+     *
+     * @return RedirectResponse
+     *
+     * @throws NonUniqueResultException
+     */
+    public function deleteBlogPost(BlogPost $blogPost): RedirectResponse
+    {
+        $currentUsername = $this->getUser()->getUsername();
+        $author          = $this->authorRepo->findByUsername($currentUsername);
+
+        if ($author !== $blogPost->getAuthor()) {
+            $this->addFlash('error', 'Unable to remove blog post!');
+
+            return $this->redirectToRoute('admin_blog_post_index');
+        }
+
+        $this->em->remove($blogPost);
+        $this->em->flush();
+
+        $this->addFlash('success', 'Blog post was deleted!');
+
+        return $this->redirectToRoute('admin_blog_post_index');
+    }
 }
