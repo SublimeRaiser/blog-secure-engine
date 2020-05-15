@@ -61,4 +61,46 @@ class BlogPostController extends AbstractController
             'postLimit'  => self::POST_LIMIT,
         ]);
     }
+
+    /**
+     * @Route("/{slug}", name="blog_post_show", methods={"GET"})
+     *
+     * @param string $slug
+     *
+     * @return Response
+     */
+    public function show(string $slug): Response
+    {
+        $blogPost = $this->blogPostRepo->findOneBySlug($slug);
+        if (!$blogPost) {
+            $this->addFlash('error', 'Unable to find blog post!');
+
+            return $this->redirectToRoute('blog_post_index');
+        }
+
+        return $this->render('blog_post/show.html.twig', [
+            'blogPost' => $blogPost,
+        ]);
+    }
+
+    /**
+     * @Route("/author/{username}", name="blog_post_author", methods={"GET"})
+     *
+     * @param string $username
+     *
+     * @return Response
+     */
+    public function author(string $username): Response
+    {
+        $author = $this->authorRepo->findOneByUsername($username);
+        if (!$author) {
+            $this->addFlash('error', 'Unable to find author!');
+
+            return $this->redirectToRoute('blog_post_index');
+        }
+
+        return $this->render('blog_post/author.html.twig', [
+            'author' => $author,
+        ]);
+    }
 }
