@@ -48,8 +48,10 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/", name="admin_index")
+     *
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
@@ -65,7 +67,7 @@ class AdminController extends AbstractController
      *
      * @throws NonUniqueResultException
      */
-    public function newAuthor(Request $request)
+    public function newAuthor(Request $request): Response
     {
         $currentUsername = $this->getUser()->getUsername();
         if ($this->authorRepo->findByUsername($currentUsername)) {
@@ -104,7 +106,7 @@ class AdminController extends AbstractController
      *
      * @throws NonUniqueResultException
      */
-    public function newBlogPost(Request $request)
+    public function newBlogPost(Request $request): Response
     {
         $currentUsername = $this->getUser()->getUsername();
         $author          = $this->authorRepo->findByUsername($currentUsername);

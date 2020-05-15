@@ -8,6 +8,7 @@ use App\Repository\AuthorRepository;
 use App\Repository\BlogPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BlogPostController extends AbstractController
@@ -35,8 +36,10 @@ class BlogPostController extends AbstractController
 
     /**
      * @Route("/", name="blog_post_index")
+     *
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         return $this->render('blog_post/index.html.twig', [
             'blogPosts' => $this->blogPostRepo->findAll(),
