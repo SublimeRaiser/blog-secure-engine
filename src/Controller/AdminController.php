@@ -120,7 +120,7 @@ class AdminController extends AbstractController
             $this->em->persist($blogPost);
             $this->em->flush();
 
-            $this->addFlash('sucess', 'Congrats! Your post is created!');
+            $this->addFlash('success', 'Congrats! Your post is created!');
 
             return $this->redirectToRoute('admin_index');
         }
