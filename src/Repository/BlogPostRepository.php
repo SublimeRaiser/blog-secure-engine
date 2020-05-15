@@ -4,14 +4,10 @@ namespace App\Repository;
 
 use App\Entity\BlogPost;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @method BlogPost|null find($id, $lockMode = null, $lockVersion = null)
- * @method BlogPost|null findOneBy(array $criteria, array $orderBy = null)
- * @method BlogPost[]    findAll()
- * @method BlogPost[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class BlogPostRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -19,32 +15,33 @@ class BlogPostRepository extends ServiceEntityRepository
         parent::__construct($registry, BlogPost::class);
     }
 
-    // /**
-    //  * @return BlogPost[] Returns an array of BlogPost objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param integer $page
+     * @param integer $limit
+     *
+     * @return BlogPost[]
+     */
+    public function getPaginatedList(int $page = 1, int $limit = 5): array
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('bp')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->addOrderBy('bp.createdAt', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?BlogPost
+    /**
+     * @return integer
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function getTotalCount(): int
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('bp')
+            ->select('count(bp)')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getSingleScalarResult();
     }
-    */
 }

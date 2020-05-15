@@ -7,12 +7,18 @@ use App\Entity\BlogPost;
 use App\Repository\AuthorRepository;
 use App\Repository\BlogPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BlogPostController extends AbstractController
 {
+    /** @var integer */
+    const POST_LIMIT = 5;
+
     /** @var EntityManagerInterface */
     private $em;
 
@@ -37,12 +43,22 @@ class BlogPostController extends AbstractController
     /**
      * @Route("/", name="blog_post_index", methods={"GET"})
      *
+     * @param Request $request
+     *
      * @return Response
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $page = $request->query->get('page', 1);
+
         return $this->render('blog_post/index.html.twig', [
-            'blogPosts' => $this->blogPostRepo->findAll(),
+            'blogPosts'  => $this->blogPostRepo->getPaginatedList($page, self::POST_LIMIT),
+            'page'       => $page,
+            'totalCount' => $this->blogPostRepo->getTotalCount(),
+            'postLimit'  => self::POST_LIMIT,
         ]);
     }
 }
