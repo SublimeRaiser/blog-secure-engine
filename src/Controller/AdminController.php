@@ -92,7 +92,7 @@ class AdminController extends AbstractController
         if ($this->authorRepo->findByUsername($currentUsername)) {
             $this->addFlash('danger', 'Unable to create author, author already exists!');
 
-            return $this->redirectToRoute('blog_post_index');
+            return $this->redirectToRoute('admin_blog_post_index');
         }
 
         $author = new Author();
@@ -108,7 +108,7 @@ class AdminController extends AbstractController
             $this->session->set('user_is_author', true);
             $this->addFlash('success', 'Congrats! You are now an author.');
 
-            return $this->redirectToRoute('blog_post_index');
+            return $this->redirectToRoute('admin_blog_post_index');
         }
 
         return $this->render('admin/author_new.html.twig', [
@@ -141,7 +141,7 @@ class AdminController extends AbstractController
 
             $this->addFlash('success', 'Congrats! Your post is created!');
 
-            return $this->redirectToRoute('admin_index');
+            return $this->redirectToRoute('admin_blog_post_index');
         }
 
         return $this->render('admin/blog_post_new.html.twig', [
