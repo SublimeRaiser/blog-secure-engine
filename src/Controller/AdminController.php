@@ -11,6 +11,7 @@ use App\Repository\BlogPostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -55,6 +56,24 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
+        ]);
+    }
+
+    /**
+     * @Route("/blog-post", name="admin_blog_post_index", methods={"GET"})
+     *
+     * @return Response
+     *
+     * @throws NonUniqueResultException
+     */
+    public function indexBlogPost(): Response
+    {
+        $currentUsername = $this->getUser()->getUsername();
+        $author          = $this->authorRepo->findByUsername($currentUsername);
+        $blogPosts       = $this->blogPostRepo->findByAuthor($author);
+
+        return $this->render('admin/blog_post_index.html.twig', [
+            'blogPosts' => $blogPosts,
         ]);
     }
 
